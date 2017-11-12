@@ -102,7 +102,10 @@ ko.bindingHandlers.codemirror = {
         // First we need to define a CodeMirror command that does nothing
         // (according to the CodeMirror docs, one should be able set a key-binding as 'false' and have it do nothing
         // but I can't seem to get that to work.
-        CodeMirror.commands['doNothing'] = function () {};
+        CodeMirror.commands["doNothing"] = function () {};
+	CodeMirror.commands["save"] = function() { 
+	    eventBus.trigger("app:save");
+	};
         // then patch the Mac default keymap to get rid of the emacsy binding, which interfere with our shortcuts
         CodeMirror.keyMap['macDefault'].fallthrough = "basic";
         // and then create our custom map, which will fall through to the (patched) default. Shift+Enter and variants
