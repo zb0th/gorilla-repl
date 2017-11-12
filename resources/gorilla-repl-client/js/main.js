@@ -280,6 +280,10 @@ $(function () {
             gorilla.start(initialFilename);
             // for debugging. Let's hope nobody else has defined a global variable called gorilla!
             window.gorilla = gorilla;
+	    // auto-save every 60 seconds
+            window.setInterval(function() { 
+	        eventBus.trigger("app:save"); 
+	    }, 1000 * 60);
         },
         // this function is called if we failed to make a REPL connection. We can't really go any further.
         function () {
