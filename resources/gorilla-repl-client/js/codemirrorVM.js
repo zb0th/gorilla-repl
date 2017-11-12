@@ -109,7 +109,7 @@ ko.bindingHandlers.codemirror = {
             'Shift-Ctrl-Enter': "doNothing",
             'Shift-Alt-Enter': "doNothing",
             'Shift-Tab': "doNothing",
-            fallthrough: "default"};
+            fallthrough: "vim"};
         var cm = CodeMirror.fromTextArea(element,
             {
                 lineNumbers: true,
