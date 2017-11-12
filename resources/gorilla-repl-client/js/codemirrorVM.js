@@ -45,6 +45,7 @@ var codemirrorVM = function (id, initialContents, contentType) {
         self.codeMirror.focus();
         self.codeMirror.setCursor(0, 0);
         self.codeMirror.focus();
+	self.codeMirror.setOption('keyMap', 'vim');
     };
 
     self.positionCursorAtContentEnd = function () {
@@ -54,12 +55,14 @@ var codemirrorVM = function (id, initialContents, contentType) {
         // position the cursor past the end of the content
         self.codeMirror.setCursor(self.codeMirror.lineCount(), 0);
         self.codeMirror.focus();
+	self.codeMirror.setOption('keyMap', 'vim');
     };
 
     self.positionCursorAtContentStartOfLastLine = function () {
         self.codeMirror.focus();
         self.codeMirror.setCursor(self.codeMirror.lineCount() - 1, 0);
         self.codeMirror.focus();
+	self.codeMirror.setOption('keyMap', 'vim');
     };
 
     self.getTokenAtCursor = function () {
@@ -119,6 +122,7 @@ ko.bindingHandlers.codemirror = {
                 keyMap: 'gorilla',
                 mode: valueAccessor().contentType
             });
+	CodeMirror.Vim.maybeInitVimState_(cm);
         cm.on("keydown", function (editor, event) {
             // we stop() the cursor events, as we don't want them reaching the worksheet. We explicitly
             // generate events when the cursor should leave the segment.
