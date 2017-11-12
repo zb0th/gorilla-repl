@@ -130,14 +130,16 @@ ko.bindingHandlers.codemirror = {
             // we stop() the cursor events, as we don't want them reaching the worksheet. We explicitly
             // generate events when the cursor should leave the segment.
             var curs;
-            if (event.keyCode === 38 && !event.shiftKey) {
+            // up OR 'k' in normal mode
+            if ((event.keyCode === 38 || (event.keyCode === 75 && !editor.state.vim.insertMode)) && !event.shiftKey) {
                 // get the current cursor position
                 curs = editor.getCursor();
                 // check for first line
                 // TODO: I'm not sure whether the completionActive state is part of the public API
-                if ((curs.line === 0) && !editor.state.completionActive)
+                if ((curs.line === 0) && !editor.state.completionActive) {
                     valueAccessor().notifyMoveCursorBack();
-           //     event.preventDefault();
+                    event.preventDefault();
+		}
             }
             // left
             if (event.keyCode === 37 && !event.shiftKey) {
@@ -147,14 +149,15 @@ ko.bindingHandlers.codemirror = {
                 if (curs.line === 0 && curs.ch === 0) valueAccessor().notifyMoveCursorBack();
             //    event.preventDefault();
             }
-            // down
-            if (event.keyCode === 40 && !event.shiftKey) {
+            // down OR 'j' in normal mode
+            if ((event.keyCode === 40 || (event.keyCode === 74 && !editor.state.vim.insertMode)) && !event.shiftKey) {
                 // get the current cursor position
                 curs = editor.getCursor();
                 // check for last line
-                if ((curs.line === (editor.lineCount() - 1)) && !editor.state.completionActive)
+                if ((curs.line === (editor.lineCount() - 1)) && !editor.state.completionActive) {
                     valueAccessor().notifyMoveCursorForward();
-             //   event.preventDefault();
+                    event.preventDefault();
+		}
             }
             // right
             if (event.keyCode === 39 && !event.shiftKey) {
